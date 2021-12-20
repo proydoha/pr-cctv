@@ -1,0 +1,25 @@
+AddOptionMenu "OptionsMenu"
+{
+	Submenu     "CCTV Options", "PR_CCTV_Options"
+}
+
+OptionMenu    "PR_CCTV_Options"
+{
+	Title       "CCTV Options"
+
+	StaticText  "Camera 1:"
+	Slider      "Position X"   , "PR_CCTV_CAMERA1_x" , 0, 1.0, 0.1
+	Slider      "Position Y"   , "PR_CCTV_CAMERA1_y" , 0, 1.0, 0.1
+	Slider      "Fine tune offset X"   , "PR_CCTV_CAMERA1_fineTune_x" , -500, 500, 1
+	Slider      "Fine tune offset Y"   , "PR_CCTV_CAMERA1_fineTune_y" , -500, 500, 1
+	Slider      "Scale"	, "PR_CCTV_CAMERA1_scale" , 0, 3.0, 0.1
+
+    StaticText  ""
+	
+	StaticText  "Camera 2:"
+	Slider      "Position X"   , "PR_CCTV_CAMERA2_x" , 0, 1.0, 0.1
+	Slider      "Position Y"   , "PR_CCTV_CAMERA2_y" , 0, 1.0, 0.1
+	Slider      "Fine tune offset X"   , "PR_CCTV_CAMERA2_fineTune_x" , -500, 500, 1
+	Slider      "Fine tune offset Y"   , "PR_CCTV_CAMERA2_fineTune_y" , -500, 500, 1
+	Slider      "Scale"   , "PR_CCTV_CAMERA2_scale" , 0, 3.0, 0.1
+}

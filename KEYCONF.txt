@@ -1,0 +1,6 @@
+addKeySection "CCTV"	"PR_CCTV"
+addMenuKey    "Next Primary Camera: "			"PR_CCTV_GetNextItem"
+addMenuKey    "Previous Primary Camera: "		"PR_CCTV_GetPreviousItem"
+
+alias PR_CCTV_GetNextItem			"netevent PR_CCTV_GetNextItem"
+alias PR_CCTV_GetPreviousItem		"netevent PR_CCTV_GetPreviousItem"

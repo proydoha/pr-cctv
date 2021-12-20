@@ -1,0 +1,4 @@
+gameinfo
+{
+  AddEventHandlers = "PR_CCTV_EventHandler"
+}

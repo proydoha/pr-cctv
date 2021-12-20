@@ -1,0 +1,14 @@
+server bool PR_CCTV_Debug = true;
+user int PR_CCTV_HubId = 0;
+
+user float PR_CCTV_CAMERA1_x = 0.0;
+user float PR_CCTV_CAMERA1_y = 0.0;
+user int   PR_CCTV_CAMERA1_fineTune_x = 0;
+user int   PR_CCTV_CAMERA1_fineTune_y = 0;
+user float PR_CCTV_CAMERA1_scale = 1.5;
+
+user float PR_CCTV_CAMERA2_x = 1.0;
+user float PR_CCTV_CAMERA2_y = 0.0;
+user int   PR_CCTV_CAMERA2_fineTune_x = 0;
+user int   PR_CCTV_CAMERA2_fineTune_y = 0;
+user float PR_CCTV_CAMERA2_scale = 1.5;
