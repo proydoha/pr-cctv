@@ -1,15 +1,14 @@
 class PR_CCTV_LineAction
 {
     string name;
-    
-    Array<int> targetType;
-    Array<int> targetArg;    
-    Array<bool> targetZeroRule;
+    Array<PR_CCTV_LineActionTarget> targets;
 
     play void AddTarget(int tType, int tArg, int tZeroRule)
     {
-        targetType.push(tType);
-        targetArg.push(tArg);
-        targetZeroRule.push(tZeroRule);
+        PR_CCTV_LineActionTarget target = new("PR_CCTV_LineActionTarget");
+        target.type = tType;
+        target.arg = tArg;
+        target.zeroRule = tZeroRule;
+        targets.push(target);
     }
 }
