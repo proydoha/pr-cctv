@@ -5,7 +5,6 @@ class PR_CCTV_Hub : Thinker
 	int id;
     Array<PR_CCTV_HubUser> users;
     Array<PR_CCTV_MapEvent> events;
-    Array<PR_CCTV_LineInformation> lineInfo;
 
     play PR_CCTV_HubUser FindUserById(int id)
     {
