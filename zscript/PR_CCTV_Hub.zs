@@ -55,8 +55,7 @@ class PR_CCTV_Hub : Thinker
             event.timeStamp, event.special, handler.lineActionDB.LineActions[event.special].name, event.activatedLine, event.activatorClass, event.activationType));
         PR_CCTV_DebugMessages.DebugMessage(
             String.Format("Args: %d, %d, %d, %d, %d", 
-            level.lines[event.activatedLine].args[0], level.lines[event.activatedLine].args[1], 
-            level.lines[event.activatedLine].args[2], level.lines[event.activatedLine].args[3], level.lines[event.activatedLine].args[4]));
+            event.specialArgs[0], event.specialArgs[1], event.specialArgs[2], event.specialArgs[3], event.specialArgs[4]));
         events.push(event);
         for (int i = 0; i < users.Size(); i++)
 		{
