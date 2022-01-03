@@ -11,7 +11,6 @@ class PR_CCTV_Camera : Actor
 	States
 	{
 		Spawn:
-			//CTGT A -1;
 			TNT1 A -1;
 	}
 }
