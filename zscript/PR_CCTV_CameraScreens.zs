@@ -18,8 +18,8 @@ class PR_CCTV_CameraScreens
 		float scale = CVar.GetCVar(scaleCvarName, playerActor.player).GetFloat();
         float posX = CVar.GetCVar(posXCvarName, playerActor.player).GetFloat();
         float posY = CVar.GetCVar(posYCvarName, playerActor.player).GetFloat();
-        int finetuneX = CVar.GetCVar(finetuneXCvarName, playerActor.player).GetInt();;
-        int finetuneY = CVar.GetCVar(finetuneYCvarName, playerActor.player).GetInt();;
+        int finetuneX = CVar.GetCVar(finetuneXCvarName, playerActor.player).GetInt();
+        int finetuneY = CVar.GetCVar(finetuneYCvarName, playerActor.player).GetInt();
         float alpha = 1.0;
 		
         TextureId cameraTexture = TexMan.CheckForTexture(cameraTextureName,TexMan.TYPE_ANY);
@@ -34,7 +34,8 @@ class PR_CCTV_CameraScreens
 		
 		float x = posX * (Screen.GetWidth()  - textureWidth * scale) * (1 / scale) + finetuneX;
 		float y = posY * (Screen.GetHeight() - textureHeight * scale) * (1 / scale) + finetuneY;
-
-		Screen.DrawTexture(noSignalTexture, false, x, y, DTA_KeepRatio, true, DTA_VIRTUALWIDTH, virtualWidth, DTA_VIRTUALHEIGHT, virtualHeight, DTA_ALPHA, alpha);
+		
+        Screen.DrawTexture(cameraTexture, false, x, y, DTA_KeepRatio, true, DTA_VIRTUALWIDTH, virtualWidth, DTA_VIRTUALHEIGHT, virtualHeight, DTA_ALPHA, alpha);
+        //Screen.DrawTexture(noSignalTexture, false, x, y, DTA_KeepRatio, true, DTA_VIRTUALWIDTH, virtualWidth, DTA_VIRTUALHEIGHT, virtualHeight, DTA_ALPHA, alpha);
 	}
 }

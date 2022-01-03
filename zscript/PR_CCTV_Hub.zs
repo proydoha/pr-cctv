@@ -28,7 +28,7 @@ class PR_CCTV_Hub : Thinker
         PR_CCTV_DebugMessages.DebugMessage(String.Format("Creating new user with #%d for hub #%d...", id, self.id));
         PR_CCTV_HubUser newUser = new("PR_CCTV_HubUser");
 		newUser.id = id;
-        newUser.hub = self;
+        newUser.hub = self;        
 		users.push(newUser);
 		PR_CCTV_DebugMessages.DebugMessage(String.Format("User #%d created for hub #%d", id, self.id));
 		return newUser;
@@ -42,6 +42,7 @@ class PR_CCTV_Hub : Thinker
         hubUser.user = a;
         token.hub = self;
         token.user = hubUser;
+        hubUser.Init();
         PR_CCTV_DebugMessages.DebugMessage(String.Format("Hub #%d reference saved in token with id %d", token.hub.id, token.id));
     }
 
