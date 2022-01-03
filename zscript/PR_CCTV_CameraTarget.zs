@@ -4,9 +4,9 @@ class PR_CCTV_CameraTarget : MapMarker
 	{
 		Height 1;
 		Radius 1;
-		RenderStyle "Translucent";		
-        XScale 1.2;
-        YScale 1.0;
+		RenderStyle "Translucent";	
+        XScale 0.6;
+        YScale 0.5;
 		+NOCLIP
 		+NOGRAVITY
 	}
