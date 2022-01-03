@@ -13,6 +13,10 @@ class PR_CCTV_CameraTarget : MapMarker
 	States
 	{
 		Spawn:
+			TNT1 A -1;
+		Target1:
 			CTGT B -1;
+		Target2:
+			CTGT C -1;
 	}
 }
