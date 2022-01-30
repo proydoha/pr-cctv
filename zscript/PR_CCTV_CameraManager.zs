@@ -135,6 +135,7 @@ class PR_CCTV_CameraManager
 	{
 		int i;
 		int j;
+		lineTargets.Clear();
         Actor probe = Actor.Spawn("Actor", (0, 0, 0));
 		for(i=0;i<sectorTargets.Size();i++)
 		{
