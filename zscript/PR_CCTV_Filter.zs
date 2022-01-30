@@ -1,6 +1,6 @@
 class PR_CCTV_Filter
 {
-    bool filterByActivationCounts;
+    bool filterByActivationCount;
     bool firstActivationOnly;
 
     bool filterByActivatorIsHubUser;
@@ -13,7 +13,7 @@ class PR_CCTV_Filter
     {
         bool checkResult = true;
 
-        if (filterByActivationCounts && firstActivationOnly)
+        if (filterByActivationCount && firstActivationOnly)
         {
             if (event.activationCount > 1)
             {
@@ -49,7 +49,7 @@ class PR_CCTV_Filter
         {
             PR_CCTV_LineAction la = handler.lineActionDB.LineActions[event.special];
             int target = event.specialArgs[la.targets[event.targetId].arg];
-            //bool zeroRule = la.targets[event.targetId].zeroRule;            
+            //bool zeroRule = la.targets[event.targetId].zeroRule;
             if (event.targetType == PR_CCTV_LineActionDB.TypeSector)
             {
                 if (filterSectorsOnLineBackSide)
@@ -59,7 +59,7 @@ class PR_CCTV_Filter
                         checkResult = false;
                     }
                 }
-            }            
+            }
         }
 
         return checkResult;
@@ -73,7 +73,7 @@ class PR_CCTV_Filter
         int secnum;
         sti = level.CreateSectorTagIterator(SectorTag);
         secnum = sti.Next();
-        while (secnum >= 0) 
+        while (secnum >= 0)
         {
             if (level.lines[LineIndex].BackSector)
             {
