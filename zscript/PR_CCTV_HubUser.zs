@@ -5,47 +5,95 @@ class PR_CCTV_HubUser
     Actor user;
     PR_CCTV_CameraManager cameraManager;
     int eventCursorPosition;
-    Array<PR_CCTV_Filter> filters;
+    Array<PR_CCTV_Filter> eventsFilters;
+    Array<PR_CCTV_Filter> camera1Filters;
+    Array<PR_CCTV_Filter> camera2Filters;
+    Array<PR_CCTV_MapEvent> events;
     
     play void Init()
     {
         cameraManager = new("PR_CCTV_CameraManager");
         cameraManager.hubUser = self;
         cameraManager.Init();
+
+        //TODO: Remove example filters
+        eventsFilters.push(new("PR_CCTV_Filter"));
+        eventsFilters[0].filterByActivationCount = true;
+        eventsFilters[0].firstActivationOnly = true;
+        camera1Filters.push(new("PR_CCTV_Filter"));
+        camera1Filters[0].filterByActivatorIsHubUser = true;
     }
 
     play void GetNextItem()
     {
-        if (hub.events.Size() == 0) { return; }
+        int eventTotal = events.Size();
+        if (eventTotal == 0) { return; }
         eventCursorPosition++;
-        eventCursorPosition = PR_CCTV_Math.Modulo(eventCursorPosition, hub.events.Size());
+        eventCursorPosition = PR_CCTV_Math.Modulo(eventCursorPosition, eventTotal);
         
-        PR_CCTV_MapEvent me = hub.events[eventCursorPosition];
-        PR_CCTV_DebugMessages.DebugMessage(String.Format("Time: %d, Special: %d, Special name: %s, Activated line: %d, Activator class: %s, Activation type: %d", 
-            me.timeStamp, me.special, hub.handler.lineActionDB.LineActions[me.special].name, me.activatedLine, me.activatorClass, me.activationType));
+        PR_CCTV_MapEvent me = events[eventCursorPosition];
+        PR_CCTV_DebugMessages.DebugMessage(String.Format("[%d/%d] Time: %d, Special: %d, Special name: %s, Activated line: %d, Activator class: %s, Activation type: %d", 
+            (eventCursorPosition + 1), eventTotal, me.timeStamp, me.special, hub.handler.lineActionDB.LineActions[me.special].name, me.activatedLine, me.activatorClass, me.activationType));
     }
 
     play void GetPreviousItem()
     {
-        if (hub.events.Size() == 0) { return; }
+        int eventTotal = events.Size();
+        if (eventTotal == 0) { return; }
         eventCursorPosition--;
-        eventCursorPosition = PR_CCTV_Math.Modulo(eventCursorPosition, hub.events.Size());
+        eventCursorPosition = PR_CCTV_Math.Modulo(eventCursorPosition, eventTotal);
 
-        PR_CCTV_MapEvent me = hub.events[eventCursorPosition];
-        PR_CCTV_DebugMessages.DebugMessage(String.Format("Time: %d, Special: %d, Special name: %s, Activated line: %d, Activator class: %s, Activation type: %d", 
-            me.timeStamp, me.special, hub.handler.lineActionDB.LineActions[me.special].name, me.activatedLine, me.activatorClass, me.activationType));
+        PR_CCTV_MapEvent me = events[eventCursorPosition];
+        PR_CCTV_DebugMessages.DebugMessage(String.Format("[%d/%d] Time: %d, Special: %d, Special name: %s, Activated line: %d, Activator class: %s, Activation type: %d", 
+            (eventCursorPosition + 1), eventTotal, me.timeStamp, me.special, hub.handler.lineActionDB.LineActions[me.special].name, me.activatedLine, me.activatorClass, me.activationType));
     }
 
     play void OnMapEvent(PR_CCTV_MapEvent event)
     {
-        // Example to try if everything works as expected
+        //Check filters / Move cameras
+        //TODO: Add queue, add fade in / fade out
+        bool addToEvents = true;
+        for (int i = 0; i < eventsFilters.Size(); i++)
+        {
+            if (eventsFilters[i].CheckEvent(event, user) == false)
+            {
+                addToEvents = false;
+                break;
+            }
+        }
+        if (addToEvents)
+        {
+            events.push(event);
+        }
 
-        // PR_CCTV_LineAction lineAction = hub.handler.lineActionDB.LineActions[event.special];
-        // if (lineAction.targets.Size() == 0) { return; }
-        // if (lineAction.targets[0].type != hub.handler.lineActionDB.TypeSector) { return; }
-        // cameraManager.BuildListOfTargetSectors(event.specialArgs[lineAction.targets[0].arg], event.activatedLine, lineAction.targets[0].zeroRule);
-        // cameraManager.BuildListOfTargetLinesFromSectors();
-        // cameraManager.LookAtLine(0, event.activatedLine);
-        // cameraManager.LookAtLine(1, cameraManager.lineTargets[0].Index());
+        bool showCamera1 = true;
+        for (int i = 0; i < camera1Filters.Size(); i++)
+        {
+            if (camera1Filters[i].CheckEvent(event, user) == false)
+            {
+                showCamera1 = false;
+                break;
+            }
+        }
+        bool showCamera2 = true;
+        for (int i = 0; i < camera2Filters.Size(); i++)
+        {
+            if (camera2Filters[i].CheckEvent(event, user) == false)
+            {
+                showCamera2 = false;
+                break;
+            }
+        }
+        if (showCamera1)
+        {
+            cameraManager.LookAtLine(0, event.activatedLine);
+        }
+        if (showCamera2)
+        {
+            if (event.targetType != PR_CCTV_LineActionDB.TypeSector) { return; }
+            cameraManager.BuildListOfTargetSectors(event.target, event.activatedLine, event.targetZeroRule);
+            cameraManager.BuildListOfTargetLinesFromSectors();
+            cameraManager.LookAtLine(1, cameraManager.lineTargets[0].Index());
+        }
     }
 }
