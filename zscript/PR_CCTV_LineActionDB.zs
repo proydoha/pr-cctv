@@ -268,7 +268,7 @@ class PR_CCTV_LineActionDB
         lineAction = AddLineAction("[Not Listed on ZDoom Wiki]");
         lineAction = AddLineAction("Thing_Move");
         lineAction.AddTarget(TypeActor, 0, false);
-        lineAction.AddTarget(TypeActor, -, false);
+        lineAction.AddTarget(TypeActor, 1, false);
         lineAction = AddLineAction("[Not Listed on ZDoom Wiki]");
         lineAction = AddLineAction("Thing_SetSpecial");
         lineAction.AddTarget(TypeActor, 0, true);
