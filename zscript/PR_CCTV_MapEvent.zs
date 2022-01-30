@@ -8,4 +8,6 @@ class PR_CCTV_MapEvent
     int activationType;
 	int[5] specialArgs;
 	int activationCount;
+	int targetType;
+	int targetId;
 }
