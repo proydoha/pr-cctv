@@ -81,7 +81,7 @@ class PR_CCTV_HubManager
 		PR_CCTV_DebugMessages.DebugMessage(String.Format("Player #%d is connected to hub #%d", playerNumber, hubId));
 	}
 
-	play void RegisterMapEvent(int timeStamp, int special, int activatedLine, Actor activator, int activationType)
+	play void RegisterMapEvent(int timeStamp, int special, int activatedLine, Actor activator, int activationType, int activationCount)
 	{
 		PR_CCTV_MapEvent event = new("PR_CCTV_MapEvent");
 		event.timeStamp = timeStamp;
@@ -89,6 +89,7 @@ class PR_CCTV_HubManager
 		event.activatedLine = activatedLine;
 		event.activator = activator;
 		event.activationType = activationType;
+		event.activationCount = activationCount;
 		for (int i = 0; i < 4; i++)
 		{
 			event.specialArgs[i] = level.lines[event.activatedLine].args[i];

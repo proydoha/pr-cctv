@@ -50,8 +50,8 @@ class PR_CCTV_Hub : Thinker
         PR_CCTV_DebugMessages.DebugMessage(
             String.Format("Hub #%d registered new event:", self.id));
         PR_CCTV_DebugMessages.DebugMessage(
-            String.Format("Time: %d, Special: %d, Special name: %s, Activated line: %d, Activator class: %s, Activation type: %d", 
-            event.timeStamp, event.special, handler.lineActionDB.LineActions[event.special].name, event.activatedLine, event.activatorClass, event.activationType));
+            String.Format("Time: %d, Special: %d, Special name: %s, Activated line: %d, Activator class: %s, Activation type: %d, Activation counter: %d", 
+            event.timeStamp, event.special, handler.lineActionDB.LineActions[event.special].name, event.activatedLine, event.activatorClass, event.activationType, event.activationCount));
         PR_CCTV_DebugMessages.DebugMessage(
             String.Format("Args: %d, %d, %d, %d, %d", 
             event.specialArgs[0], event.specialArgs[1], event.specialArgs[2], event.specialArgs[3], event.specialArgs[4]));

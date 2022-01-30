@@ -2,6 +2,7 @@ class PR_CCTV_EventHandler : EventHandler
 {
 	PR_CCTV_HubManager hubManager;
 	PR_CCTV_LineActionDB lineActionDB;
+	Array<int> lineActivationCounter;
 	
 	override void OnRegister()
 	{
@@ -9,7 +10,7 @@ class PR_CCTV_EventHandler : EventHandler
 		hubManager = new("PR_CCTV_HubManager");
 		hubManager.handler = self;
 		lineActionDB = new("PR_CCTV_LineActionDB");
-		lineActionDB.InitDatabase();
+		lineActionDB.InitDatabase();		
 	}
 
 	override void PlayerEntered(PlayerEvent e)
@@ -21,7 +22,11 @@ class PR_CCTV_EventHandler : EventHandler
 	
 	override void WorldLoaded(WorldEvent e)
 	{		
-		PR_CCTV_DebugMessages.DebugMessage("World Loaded");		
+		PR_CCTV_DebugMessages.DebugMessage("World Loaded");
+		for (int i = 0; i < level.Lines.Size(); i++)
+		{
+			lineActivationCounter.push(0);
+		}
 	}
 	
 	override void RenderOverlay(RenderEvent e) 
@@ -37,7 +42,9 @@ class PR_CCTV_EventHandler : EventHandler
 	override void WorldLineActivated(WorldEvent e)
 	{
 		PR_CCTV_DebugMessages.DebugMessage("World Line Activated");
-		hubManager.RegisterMapEvent(level.Time, level.lines[e.ActivatedLine.Index()].Special, e.ActivatedLine.Index(), e.Thing, e.ActivationType);
+		int activatedLineIndex = e.ActivatedLine.Index();
+		lineActivationCounter[activatedLineIndex]++;
+		hubManager.RegisterMapEvent(level.Time, level.lines[activatedLineIndex].Special, activatedLineIndex, e.Thing, e.ActivationType, lineActivationCounter[activatedLineIndex]);
 	}
 	
 	override void NetworkProcess (ConsoleEvent e)
