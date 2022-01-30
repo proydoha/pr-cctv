@@ -103,6 +103,7 @@ class PR_CCTV_HubManager
 			event.activationCount = activationCount;
 			event.targetType = la.targets[i].type;
 			event.targetId = i;
+			event.target = target;
 			for (int i = 0; i < 4; i++)
 			{
 				event.specialArgs[i] = level.lines[event.activatedLine].args[i];
