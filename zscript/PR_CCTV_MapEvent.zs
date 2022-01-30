@@ -11,4 +11,5 @@ class PR_CCTV_MapEvent
 	int targetType;
 	int targetId;
 	int target;
+	bool targetZeroRule;
 }
