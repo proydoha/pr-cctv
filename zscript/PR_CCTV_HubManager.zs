@@ -87,6 +87,13 @@ class PR_CCTV_HubManager
 		PR_CCTV_LineAction la = handler.lineActionDB.LineActions[special];
 		for (int i = 0; i < la.targets.Size(); i++)
 		{
+			//Do not create map event if target is 0 and there are no zero rule for it
+			int target = level.lines[activatedLine].args[la.targets[i].arg];
+			bool zeroRule = la.targets[i].zeroRule;
+            if (target == 0 && zeroRule == false)
+			{
+				continue;
+			}
 			PR_CCTV_MapEvent event = new("PR_CCTV_MapEvent");
 			event.timeStamp = timeStamp;
 			event.special = special;
