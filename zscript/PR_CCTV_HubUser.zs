@@ -5,6 +5,7 @@ class PR_CCTV_HubUser
     Actor user;
     PR_CCTV_CameraManager cameraManager;
     int eventCursorPosition;
+    Array<PR_CCTV_Filter> filters;
     
     play void Init()
     {
