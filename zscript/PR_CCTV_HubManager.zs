@@ -84,7 +84,8 @@ class PR_CCTV_HubManager
 	play void RegisterMapEvent(int timeStamp, int special, int activatedLine, Actor activator, int activationType, int activationCount)
 	{
 		//I've decided to treat multi-target line actions as separate events. One event for each target.
-		for (int i = 0; i < handler.lineActionDB.LineActions[special].targets.Size(); i++)
+		PR_CCTV_LineAction la = handler.lineActionDB.LineActions[special];
+		for (int i = 0; i < la.targets.Size(); i++)
 		{
 			PR_CCTV_MapEvent event = new("PR_CCTV_MapEvent");
 			event.timeStamp = timeStamp;
@@ -93,7 +94,7 @@ class PR_CCTV_HubManager
 			event.activator = activator;
 			event.activationType = activationType;
 			event.activationCount = activationCount;
-			event.targetType = handler.lineActionDB.LineActions[special].targets[i].type;
+			event.targetType = la.targets[i].type;
 			event.targetId = i;
 			for (int i = 0; i < 4; i++)
 			{
