@@ -11,6 +11,17 @@ class PR_CCTV_LineActionDB
         TypePolyobjectNumber,
     }
 
+    static PR_CCTV_LineAction GetLineActionByNumber(int special)
+    {
+        PR_CCTV_LineAction lineAction = null;
+        PR_CCTV_EventHandler handler = PR_CCTV_EventHandler(EventHandler.Find("PR_CCTV_EventHandler"));
+        if (handler)
+        {
+			lineAction = handler.lineActionDB.LineActions[special];
+		}
+        return lineAction;
+    }
+
     play PR_CCTV_LineAction AddLineAction(string name)
     {
         PR_CCTV_LineAction lineAction = new("PR_CCTV_LineAction");

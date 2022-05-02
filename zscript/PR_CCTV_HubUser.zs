@@ -32,8 +32,7 @@ class PR_CCTV_HubUser
         eventCursorPosition = PR_CCTV_Math.Modulo(eventCursorPosition, eventTotal);
         
         PR_CCTV_MapEvent me = events[eventCursorPosition];
-        PR_CCTV_DebugMessages.DebugMessage(String.Format("[%d/%d] Time: %d, Special: %d, Special name: %s, Activated line: %d, Activator class: %s, Activation type: %d", 
-            (eventCursorPosition + 1), eventTotal, me.timeStamp, me.special, hub.handler.lineActionDB.LineActions[me.special].name, me.activatedLine, me.activatorClass, me.activationType));
+        PR_CCTV_DebugMessages.DebugMessage(String.Format("[%d/%d] %s", (eventCursorPosition + 1), eventTotal, me.GetInformation()));
     }
 
     play void GetPreviousItem()
@@ -44,8 +43,7 @@ class PR_CCTV_HubUser
         eventCursorPosition = PR_CCTV_Math.Modulo(eventCursorPosition, eventTotal);
 
         PR_CCTV_MapEvent me = events[eventCursorPosition];
-        PR_CCTV_DebugMessages.DebugMessage(String.Format("[%d/%d] Time: %d, Special: %d, Special name: %s, Activated line: %d, Activator class: %s, Activation type: %d", 
-            (eventCursorPosition + 1), eventTotal, me.timeStamp, me.special, hub.handler.lineActionDB.LineActions[me.special].name, me.activatedLine, me.activatorClass, me.activationType));
+        PR_CCTV_DebugMessages.DebugMessage(String.Format("[%d/%d] %s", (eventCursorPosition + 1), eventTotal, me.GetInformation()));
     }
 
     play void OnMapEvent(PR_CCTV_MapEvent event)

@@ -92,6 +92,7 @@ class PR_CCTV_HubManager
 			bool zeroRule = la.targets[i].zeroRule;
             if (target == 0 && zeroRule == false)
 			{
+				PR_CCTV_DebugMessages.DebugMessage("Warning: line was activated with Target: 0 and ZeroRule: false. Event not registered.");
 				continue;
 			}
 			PR_CCTV_MapEvent event = new("PR_CCTV_MapEvent");

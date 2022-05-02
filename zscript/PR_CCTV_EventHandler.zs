@@ -49,7 +49,7 @@ class PR_CCTV_EventHandler : EventHandler
 	
 	override void NetworkProcess (ConsoleEvent e)
 	{
-		PR_CCTV_DebugMessages.DebugMessage("Network Process");
+		//PR_CCTV_DebugMessages.DebugMessage("Network Process");
 
 		Actor playerActor = players[e.Player].mo;
 		if (!playerActor) { return; }
@@ -60,10 +60,12 @@ class PR_CCTV_EventHandler : EventHandler
 				
 		if (e.Name == "PR_CCTV_GetNextItem")
 		{
+			PR_CCTV_DebugMessages.DebugMessage("Network Process: PR_CCTV_GetNextItem");
 		 	token.user.GetNextItem();
 		} 
 		else if (e.Name == "PR_CCTV_GetPreviousItem")
 		{
+			PR_CCTV_DebugMessages.DebugMessage("Network Process: PR_CCTV_GetPreviousItem");
 			token.user.GetPreviousItem();
 		}
 	}

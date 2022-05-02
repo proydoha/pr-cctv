@@ -44,20 +44,16 @@ class PR_CCTV_Filter
             }
         }
 
-        PR_CCTV_EventHandler handler = PR_CCTV_EventHandler(EventHandler.Find("PR_CCTV_EventHandler"));
-        if (handler)
+        PR_CCTV_LineAction la = PR_CCTV_LineActionDB.GetLineActionByNumber(event.special);
+        int target = event.specialArgs[la.targets[event.targetId].arg];
+        //bool zeroRule = la.targets[event.targetId].zeroRule;
+        if (event.targetType == PR_CCTV_LineActionDB.TypeSector)
         {
-            PR_CCTV_LineAction la = handler.lineActionDB.LineActions[event.special];
-            int target = event.specialArgs[la.targets[event.targetId].arg];
-            //bool zeroRule = la.targets[event.targetId].zeroRule;
-            if (event.targetType == PR_CCTV_LineActionDB.TypeSector)
+            if (filterSectorsOnLineBackSide)
             {
-                if (filterSectorsOnLineBackSide)
+                if (isSectorOnLineBackside(event.activatedLine, target))
                 {
-                    if (isSectorOnLineBackside(event.activatedLine, target))
-                    {
-                        checkResult = false;
-                    }
+                    checkResult = false;
                 }
             }
         }
