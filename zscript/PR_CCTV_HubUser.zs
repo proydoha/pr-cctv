@@ -1,6 +1,6 @@
 class PR_CCTV_HubUser : Thinker
 {
-	int id;
+    int id;
     PR_CCTV_Hub hub;
     Actor user;
     PR_CCTV_CameraManager cameraManager;
@@ -14,8 +14,8 @@ class PR_CCTV_HubUser : Thinker
     CameraStates cameraState;
 
     int cameraFadeInTime;
-	int cameraFadeOutTime;
-	int cameraOnScreenTime;
+    int cameraFadeOutTime;
+    int cameraOnScreenTime;
     int camera1Timer;
     int camera2Timer;
     float camera1Alpha;
@@ -179,8 +179,7 @@ class PR_CCTV_HubUser : Thinker
     }
 
     override void Tick()
-	{
+    {
         ManageCameraStates();
-        //PR_CCTV_DebugMessages.DebugMessage("Tick-Tock");
     }
 }
