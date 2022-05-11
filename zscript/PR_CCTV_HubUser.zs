@@ -1,4 +1,4 @@
-class PR_CCTV_HubUser
+class PR_CCTV_HubUser : Thinker
 {
 	int id;
     PR_CCTV_Hub hub;
@@ -9,12 +9,41 @@ class PR_CCTV_HubUser
     Array<PR_CCTV_Filter> camera1Filters;
     Array<PR_CCTV_Filter> camera2Filters;
     Array<PR_CCTV_MapEvent> events;
-    
+    Array<PR_CCTV_MapEvent> eventQueue;
+
+    CameraStates cameraState;
+
+    int cameraFadeInTime;
+	int cameraFadeOutTime;
+	int cameraOnScreenTime;
+    int camera1Timer;
+    int camera2Timer;
+    float camera1Alpha;
+    float camera2Alpha;
+
+    enum CameraStates
+    {
+        OffScreen = 0,
+        FadeIn,
+        OnScreen,
+        FadeOut
+    }
+
     play void Init()
     {
         cameraManager = new("PR_CCTV_CameraManager");
         cameraManager.hubUser = self;
         cameraManager.Init();
+
+        cameraState = OffScreen;
+        cameraFadeInTime = 10;
+        cameraFadeOutTime = 35;
+        cameraOnScreenTime = 35*5;
+        camera1Timer = 0;
+        camera2Timer = 0;
+
+        camera1Alpha = 0;
+        camera2Alpha = 0;
 
         //TODO: Remove example filters
         eventsFilters.push(new("PR_CCTV_Filter"));
@@ -22,6 +51,58 @@ class PR_CCTV_HubUser
         eventsFilters[0].firstActivationOnly = true;
         camera1Filters.push(new("PR_CCTV_Filter"));
         camera1Filters[0].filterByActivatorIsHubUser = true;
+    }
+
+    //I think all of this management should be in a different class
+    play void ManageCameraStates()
+    {
+        if (camera1Timer == 0)
+        {
+            if (cameraState == OffScreen) { return; }
+            else if (cameraState == FadeIn)
+            {
+                cameraState = OnScreen;
+                camera1Timer = cameraOnScreenTime;
+                camera2Timer = cameraOnScreenTime;                
+            }
+            else if (cameraState == OnScreen)
+            {
+                cameraState = FadeOut;
+                camera1Timer = cameraFadeOutTime;
+                camera2Timer = cameraFadeOutTime;
+                camera1Alpha = 1.0;
+                camera2Alpha = 1.0;
+            }
+            else if (cameraState == FadeOut)
+            {
+                cameraState = OffScreen;
+                camera1Alpha = 0.0;
+                camera2Alpha = 0.0;
+            }
+        }
+        else 
+        {
+            camera1Timer--;
+            camera2Timer--;
+
+            if (cameraState == FadeIn)
+            {
+                camera1Alpha = 1.0 - float(camera1Timer)/float(cameraFadeInTime);
+                camera2Alpha = 1.0 - float(camera2Timer)/float(cameraFadeInTime);
+            }
+            else if (cameraState == FadeOut)
+            {
+                camera1Alpha = float(camera1Timer)/float(cameraFadeOutTime);
+                camera2Alpha = float(camera2Timer)/float(cameraFadeOutTime);
+            }
+        }
+    }
+
+    play void ShowCamera()
+    {
+        cameraState = FadeIn;
+        camera1Timer = cameraFadeInTime;
+        camera2Timer = cameraFadeInTime;
     }
 
     play void GetNextItem()
@@ -85,6 +166,7 @@ class PR_CCTV_HubUser
         if (showCamera1)
         {
             cameraManager.LookAtLine(0, event.activatedLine);
+            ShowCamera();
         }
         if (showCamera2)
         {
@@ -92,6 +174,13 @@ class PR_CCTV_HubUser
             cameraManager.BuildListOfTargetSectors(event.target, event.activatedLine, event.targetZeroRule);
             cameraManager.BuildListOfTargetLinesFromSectors();
             cameraManager.LookAtLine(1, cameraManager.lineTargets[0].Index());
+            ShowCamera();
         }
+    }
+
+    override void Tick()
+	{
+        ManageCameraStates();
+        //PR_CCTV_DebugMessages.DebugMessage("Tick-Tock");
     }
 }

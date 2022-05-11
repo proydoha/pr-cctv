@@ -1,6 +1,6 @@
 class PR_CCTV_CameraScreens
 {
-    static ui void DrawScreen(Actor playerActor, string cameraCvarName)
+    static ui void DrawScreen(Actor playerActor, string cameraCvarName, float alpha)
 	{
         if (!playerActor) { return; }
         PR_CCTV_DataToken token = PR_CCTV_DataToken(playerActor.FindInventory("PR_CCTV_DataToken"));
@@ -20,7 +20,6 @@ class PR_CCTV_CameraScreens
         float posY = CVar.GetCVar(posYCvarName, playerActor.player).GetFloat();
         int finetuneX = CVar.GetCVar(finetuneXCvarName, playerActor.player).GetInt();
         int finetuneY = CVar.GetCVar(finetuneYCvarName, playerActor.player).GetInt();
-        float alpha = 1.0;
 		
         TextureId cameraTexture = TexMan.CheckForTexture(cameraTextureName,TexMan.TYPE_ANY);
         TextureId noSignalTexture = TexMan.CheckForTexture("CCTVNOSG",TexMan.TYPE_ANY);

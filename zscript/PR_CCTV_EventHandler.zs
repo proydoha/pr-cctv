@@ -35,8 +35,14 @@ class PR_CCTV_EventHandler : EventHandler
 		Actor playerActor = e.camera;
 		if (!playerActor) { return; }
 		if (!playerActor.player) { return; }
-		PR_CCTV_CameraScreens.DrawScreen(e.camera, "CAMERA1");
-		PR_CCTV_CameraScreens.DrawScreen(e.camera, "CAMERA2");		
+		PR_CCTV_DataToken token = PR_CCTV_DataToken(playerActor.FindInventory("PR_CCTV_DataToken"));
+		if (!token) { return; }
+		if (!token.hub) { return; }
+		if (!token.user) { return; }
+		float camera1Alpha = token.user.camera1Alpha;
+		float camera2Alpha = token.user.camera2Alpha;
+		PR_CCTV_CameraScreens.DrawScreen(e.camera, "CAMERA1", camera1Alpha);
+		PR_CCTV_CameraScreens.DrawScreen(e.camera, "CAMERA2", camera2Alpha);		
 	}
 	
 	override void WorldLineActivated(WorldEvent e)
