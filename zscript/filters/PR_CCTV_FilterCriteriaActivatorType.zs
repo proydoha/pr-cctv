@@ -1,8 +1,8 @@
 class PR_CCTV_FilterCriteriaActivatorType : PR_CCTV_FilterCriteriaBase
 {
-    PR_CCTV_ActivatorTypes expectedType;
+    ActivatorTypes expectedType;
 
-    static PR_CCTV_FilterCriteriaActivatorType Create(PR_CCTV_ActivatorTypes expectedType)
+    static PR_CCTV_FilterCriteriaActivatorType Create(ActivatorTypes expectedType)
     {
         PR_CCTV_FilterCriteriaActivatorType criteria = new("PR_CCTV_FilterCriteriaActivatorType");
         criteria.expectedType = expectedType;
@@ -11,7 +11,7 @@ class PR_CCTV_FilterCriteriaActivatorType : PR_CCTV_FilterCriteriaBase
 
     override bool Check(PR_CCTV_MapEvent event, Actor hubUser)
     {
-        PR_CCTV_ActivatorTypes actualType;
+        ActivatorTypes actualType;
         bool checkResult;
 
         if (event.activator.Player == null) { actualType = IsNotPlayer; }
@@ -22,7 +22,7 @@ class PR_CCTV_FilterCriteriaActivatorType : PR_CCTV_FilterCriteriaBase
         return checkResult;
     }
 
-    enum PR_CCTV_ActivatorTypes
+    enum ActivatorTypes
     {
         IsHubUser = 0,
         IsOtherPlayer,
