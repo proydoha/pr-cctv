@@ -1,7 +1,7 @@
 class PR_CCTV_CameraManager
 {
     PR_CCTV_HubUser hubUser;
-    Actor[2] camera;
+    PR_CCTV_Camera[2] camera;
 	Actor[2] cameraTarget;
     string[2] cameraTextureName;
     int maxCameraDistanceToTarget;
@@ -18,7 +18,7 @@ class PR_CCTV_CameraManager
         int playerNumber = hubUser.user.PlayerNumber();
         for(i = 0; i < 2; i++)
 		{
-            camera[i] = Actor.Spawn("PR_CCTV_Camera", (0, 0, 0));
+            camera[i] = PR_CCTV_Camera(Actor.Spawn("PR_CCTV_Camera", (0, 0, 0)));
             cameraTarget[i] = Actor.Spawn("PR_CCTV_CameraTarget", (0, 0, 0));
             cameraTextureName[i] = String.Format("CAMERA%dPLAYER%d", i + 1, playerNumber);
 			TexMan.SetCameraToTexture(camera[i], cameraTextureName[i], 90);
