@@ -9,7 +9,6 @@ class PR_CCTV_Filter
 
     bool CheckEvent(PR_CCTV_MapEvent event, Actor hubUser)
     {
-        PR_CCTV_DebugMessages.DebugMessage("Checking filter criterias...");
         bool checkResult = true;
         for (int i = 0; i < criterias.Size(); i++)
         {
@@ -20,7 +19,6 @@ class PR_CCTV_Filter
                 break;
             }
         }
-        PR_CCTV_DebugMessages.DebugMessage("Filter check result: "..checkResult);
         return checkResult;
     }
     // bool filterByActivationCount;
