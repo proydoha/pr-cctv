@@ -27,6 +27,12 @@ class PR_CCTV_HubUser : Thinker
         PR_CCTV_FilterCriteriaBase criteria2 = PR_CCTV_FilterCriteriaActivationCount.Create(1);
         filter2.AddCriteria(criteria2);
         eventsFilters.push(filter2);
+
+        PR_CCTV_Filter filter3 = new("PR_CCTV_Filter");
+        PR_CCTV_FilterCriteriaBase criteria3 = PR_CCTV_FilterCriteriaTargetOnBacksideOfALine.Create();
+        filter3.AddCriteria(criteria3);
+        filter3.AddCriteria(criteria1);
+        camera2Filters.push(filter3);
     }
 
     play void GetNextItem()
