@@ -19,12 +19,12 @@ class PR_CCTV_HubUser : Thinker
 
         //TODO: Remove example filters
         PR_CCTV_Filter filter1 = new("PR_CCTV_Filter");
-        PR_CCTV_ActivatorTypeFilterCriteria criteria1 = PR_CCTV_ActivatorTypeFilterCriteria.Create(PR_CCTV_ActivatorTypeFilterCriteria.IsHubUser);
+        PR_CCTV_FilterCriteriaBase criteria1 = PR_CCTV_FilterCriteriaActivatorType.Create(PR_CCTV_FilterCriteriaActivatorType.IsHubUser);
         filter1.AddCriteria(criteria1);
         camera1Filters.push(filter1);
 
         PR_CCTV_Filter filter2 = new("PR_CCTV_Filter");
-        PR_CCTV_ActivationCountFilterCriteria criteria2 = PR_CCTV_ActivationCountFilterCriteria.Create(1);
+        PR_CCTV_FilterCriteriaBase criteria2 = PR_CCTV_FilterCriteriaActivationCount.Create(1);
         filter2.AddCriteria(criteria2);
         eventsFilters.push(filter2);
     }

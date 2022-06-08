@@ -1,8 +1,8 @@
 class PR_CCTV_Filter
 {
-    Array<PR_CCTV_BaseFilterCriteria> criterias;
+    Array<PR_CCTV_FilterCriteriaBase> criterias;
 
-    void AddCriteria(PR_CCTV_BaseFilterCriteria criteria)
+    void AddCriteria(PR_CCTV_FilterCriteriaBase criteria)
     {
         criterias.push(criteria);
     }
